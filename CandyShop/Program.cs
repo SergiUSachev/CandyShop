@@ -11,7 +11,7 @@ namespace CandyShop
 		static void Main(string[] args)
 		{
 			Merchant merchant = new Merchant { Money = 0 };
-			Player player = new Player { Money = 100 };
+			Player player = new Player();
 			Product product = new Product();
 			int amountGoods;
 
