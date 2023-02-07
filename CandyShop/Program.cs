@@ -2,7 +2,6 @@
 //и при нужде, может вам его показать, также продавец 
 //может продать вам товар. После продажи товар переходит
 //к вам, и вы можете также посмотреть свои вещи.
-
 //Возможные классы – игрок, продавец, товар. 
 
 namespace CandyShop
@@ -14,6 +13,8 @@ namespace CandyShop
 			Merchant merchant = new Merchant { Money = 0 };
 			Player player = new Player { Money = 100 };
 			Product product = new Product();
+			int amountGoods;
+
 			List<Product> products = new List<Product>
 			{
 				new Product("Кислинка", 12, 3),
@@ -23,7 +24,6 @@ namespace CandyShop
 			};
 
 			merchant.SetGoods(products);
-			int amountGoods;
 
 			while (Console.ReadKey().Key != ConsoleKey.Escape)
 			{
@@ -71,6 +71,8 @@ namespace CandyShop
 					{
 						break;
 					}
+
+					player.ShowProducts();
 				}
 			}
 		}
@@ -98,10 +100,10 @@ namespace CandyShop
 
 		public override void ShowProducts()
 		{
-			Console.WriteLine("Goods:");
-			foreach (var item in Products)
+			Console.WriteLine("Купленное:");
+			foreach (var item in _products)
 			{
-				Console.WriteLine($"{item.Name}, Количество: {item.Amount}, Цена: {item.Price}");
+				Console.WriteLine($"{item.Name}, Количество: {item.Amount}");
 			}
 		}
 
@@ -208,7 +210,7 @@ namespace CandyShop
 
 		public override void ShowProducts()
 		{
-			Console.WriteLine("Товары:");
+			Console.WriteLine("Товары на продажу:");
 			foreach (var item in Products)
 			{
 				Console.WriteLine($"{item.Name}, Количество: {item.Amount}, Цена: {item.Price}");
