@@ -101,6 +101,7 @@ namespace CandyShop
 		public override void ShowProducts()
 		{
 			Console.WriteLine("Купленное:");
+
 			foreach (var item in _products)
 			{
 				Console.WriteLine($"{item.Name}, Количество: {item.Amount}");
@@ -115,6 +116,7 @@ namespace CandyShop
 		public Product Choose(List<Product> products)
 		{
 			Product product;
+
 			while (TryGetProductByName(products, out product)==false)
 			{
 				Console.WriteLine("Такого товара нет, введите другое название");
@@ -129,12 +131,14 @@ namespace CandyShop
 			{
 				Console.WriteLine($"Не хватает - {product.Price*amountGoods - Money}," +
 					$"выберете, что-то другое");
+
 				return false;
 			}
 			else
 			{
 				Money = Money - product.Price*amountGoods;
 				SetMoney(Money);
+
 				return true;
 			}
 		}
@@ -143,6 +147,7 @@ namespace CandyShop
 		{
 			Console.WriteLine(Money);
 		}
+
 		private void SetMoney(int money)
 		{
 			Money = money;
