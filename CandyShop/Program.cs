@@ -12,7 +12,6 @@ namespace CandyShop
 		{
 			Merchant merchant = new Merchant { Money = 0 };
 			Player player = new Player();
-			Product product = new Product();
 			int amountGoods;
 
 			List<Product> products = new List<Product>
@@ -41,7 +40,7 @@ namespace CandyShop
 					Console.WriteLine("Введите название товара, который " +
 						"хотите купить");
 
-					product = player.Choose(products);
+					Product product = player.Choose(products);
 
 					Console.WriteLine("Введите количество товара, который хотите купить\n");
 
@@ -77,18 +76,19 @@ namespace CandyShop
 			}
 		}
 	}
-	abstract class Person
+	abstract class Person //зачем игроку свой лист продуктов???? если его сюда можно пихнуть
 	{
 		public List<Product> Products { get; set; }
 		public int Money { get; set; }
 
-		public void ShowMoney()
+		public void SetMoney(int money)
 		{
-			Console.WriteLine($"Money: {Money}");
+			Money = money;
 		}
 
 		public abstract void ShowProducts();
 	}
+
 	class Player : Person
 	{
 		private List<Product> _products = new List<Product>();
@@ -141,16 +141,6 @@ namespace CandyShop
 
 				return true;
 			}
-		}
-
-		public void ShowMoney()
-		{
-			Console.WriteLine(Money);
-		}
-
-		private void SetMoney(int money)
-		{
-			Money = money;
 		}
 
 		private bool TryGetProductByName(List<Product> products, out Product product)
@@ -216,16 +206,13 @@ namespace CandyShop
 		public override void ShowProducts()
 		{
 			Console.WriteLine("Товары на продажу:");
+
 			foreach (var item in Products)
 			{
 				Console.WriteLine($"{item.Name}, Количество: {item.Amount}, Цена: {item.Price}");
 			}
 		}
 
-		private void SetMoney(int money)
-		{
-			Money = money;
-		}
 	}
 
 	public class Product
