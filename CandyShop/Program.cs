@@ -76,7 +76,8 @@ namespace CandyShop
 			}
 		}
 	}
-	abstract class Person //зачем игроку свой лист продуктов???? если его сюда можно пихнуть
+
+	abstract class Person 
 	{
 		protected int money;
 		protected List<Product> products;
