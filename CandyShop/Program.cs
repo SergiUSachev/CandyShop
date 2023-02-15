@@ -10,7 +10,7 @@ namespace CandyShop
 	{
 		static void Main(string[] args)
 		{
-			Merchant merchant = new Merchant { Money = 0 };
+			Merchant merchant = new Merchant();
 			Player player = new Player();
 			int amountGoods;
 
@@ -78,8 +78,16 @@ namespace CandyShop
 	}
 	abstract class Person //зачем игроку свой лист продуктов???? если его сюда можно пихнуть
 	{
-		public List<Product> Products { get; set; }
-		public int Money { get; set; }
+		protected int money;
+		protected List<Product> products;
+
+		public Person()
+		{
+			products = new List<Product>();
+		}
+
+		public List<Product> Products { get { return products; } private set { products = value; } }
+		public int Money { get { return money; } private set { money = value; } }
 
 		public void SetMoney(int money)
 		{
@@ -91,18 +99,17 @@ namespace CandyShop
 
 	class Player : Person
 	{
-		private List<Product> _products = new List<Product>();
 
 		public Player()
 		{
-			Money = 100;
+			money = 100;
 		}
 
 		public override void ShowProducts()
 		{
 			Console.WriteLine("Купленное:");
 
-			foreach (var item in _products)
+			foreach (var item in products)
 			{
 				Console.WriteLine($"{item.Name}, Количество: {item.Amount}");
 			}
@@ -136,8 +143,8 @@ namespace CandyShop
 			}
 			else
 			{
-				Money = Money - product.Price*amountGoods;
-				SetMoney(Money);
+				int PlayerMoney = Money - product.Price*amountGoods;
+				SetMoney(PlayerMoney);
 
 				return true;
 			}
@@ -163,15 +170,20 @@ namespace CandyShop
 		private void AddProduct(Product product, int amountGoods) //бляааа 
 		{
 			Product playerProduct = new Product(product.Name, amountGoods, product.Price);
-			_products.Add(playerProduct);
+			products.Add(playerProduct);
 		}
 	}
 
 	class Merchant : Person
 	{
+		public Merchant()
+		{
+			money = 0;
+		}
+
 		public void SetGoods(List<Product> goods)
 		{
-			Products = goods;
+			products = goods;
 		}
 
 		public void SellProduct(Product product, int amountGoods)
@@ -222,11 +234,6 @@ namespace CandyShop
 			Name = name;
 			Amount = amount;
 			Price=price;
-		}
-
-		public Product()
-		{
-
 		}
 
 		public string Name { get; private set; }
