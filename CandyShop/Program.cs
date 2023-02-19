@@ -77,7 +77,7 @@ namespace CandyShop
 		}
 	}
 
-	abstract class Person 
+	abstract class Person
 	{
 		protected int money;
 		protected List<Product> products;
@@ -87,8 +87,29 @@ namespace CandyShop
 			products = new List<Product>();
 		}
 
-		public List<Product> Products { get { return products; } private set { products = value; } }
-		public int Money { get { return money; } private set { money = value; } }
+		public List<Product> Products
+		{
+			get
+			{
+				return new List<Product>(products);
+			}
+			private set
+			{
+				products = value;
+			}
+		}
+
+		public int Money 
+		{ 
+			get 
+			{ 
+				return money; 
+			} 
+			private set 
+			{ 
+				money = value; 
+			} 
+		}
 
 		public void SetMoney(int money)
 		{
@@ -100,7 +121,6 @@ namespace CandyShop
 
 	class Player : Person
 	{
-
 		public Player()
 		{
 			money = 100;
@@ -144,8 +164,8 @@ namespace CandyShop
 			}
 			else
 			{
-				int PlayerMoney = Money - product.Price*amountGoods;
-				SetMoney(PlayerMoney);
+				int playerMoney = Money - product.Price*amountGoods;
+				SetMoney(playerMoney);
 
 				return true;
 			}
@@ -245,6 +265,5 @@ namespace CandyShop
 		{
 			Amount = amount;
 		}
-
 	}
 }
